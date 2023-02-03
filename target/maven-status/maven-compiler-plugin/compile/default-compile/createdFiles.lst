@@ -1,0 +1,11 @@
+br/com/codegroup/service/PessoaService.class
+br/com/codegroup/service/IPessoaService.class
+br/com/codegroup/repository/PessoaRepository.class
+br/com/codegroup/controller/PessoaController.class
+br/com/codegroup/service/IProjetoService.class
+br/com/codegroup/service/ProjetoService.class
+br/com/codegroup/repository/ProjetoRepository.class
+br/com/codegroup/model/Projeto.class
+br/com/codegroup/CodeGroupApplication.class
+br/com/codegroup/controller/ProjetoController.class
+br/com/codegroup/model/Pessoa.class

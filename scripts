@@ -1,0 +1,4 @@
+# scripts do banco de dados:
+create database codegroup;
+create schema desafio;
+
