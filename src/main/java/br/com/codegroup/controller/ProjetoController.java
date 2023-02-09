@@ -1,6 +1,6 @@
 package br.com.codegroup.controller;
 
-import br.com.codegroup.model.Projeto;
+import br.com.codegroup.dto.ProjetoDto;
 import br.com.codegroup.service.IPessoaService;
 import br.com.codegroup.service.IProjetoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
@@ -29,7 +30,19 @@ public class ProjetoController {
     @Autowired
     private IPessoaService servicePessoa;
 
-    private List<String> LISTA_STATUS_NAO_PODE_DELETAR = Arrays.asList("INICIADO", "EM ANDAMENTO", "ENCERRADO");
+    private static final List<String> LISTA_STATUS_NAO_PODE_DELETAR = Arrays.asList("INICIADO", "EM ANDAMENTO", "ENCERRADO");
+
+    private static final String LISTAR_PROJETO = "listar-projeto";
+
+    private static final String LISTA_GERENTES = "listaGerentes";
+
+    private static final String GERENTE = "gerente";
+
+    private static final String PROJETO = "projeto";
+
+    private static final String PROJETOS = "projetos";
+
+    private static final String REDIRECT = "redirect:/";
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -37,64 +50,72 @@ public class ProjetoController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
-    @RequestMapping(value = "/listar-projeto", method = RequestMethod.GET)
+    @GetMapping(value = "/listar-projeto")
     public String listarProjetos(ModelMap model) {
-        model.put("projetos", service.findAll());
+        model.put(PROJETOS, service.findAll());
 
-        return "listar-projeto";
+        return LISTAR_PROJETO;
     }
 
-    @RequestMapping(value = "/novo-projeto", method = RequestMethod.GET)
+    @GetMapping(value = "/novo-projeto")
     public String novoProjeto(ModelMap model) {
-        model.addAttribute("listaGerentes", servicePessoa.listaFuncionarios());
-        model.addAttribute("projeto", new Projeto());
+        model.addAttribute(LISTA_GERENTES, servicePessoa.listaFuncionarios());
+        model.addAttribute(PROJETO, new ProjetoDto());
 
-        return "projeto";
+        return PROJETO;
     }
 
-    @RequestMapping(value = "/novo-projeto", method = RequestMethod.POST)
-    public String novoProjeto(@Valid Projeto projeto, BindingResult result) {
+    @PostMapping(value = "/novo-projeto")
+    public String novoProjeto(@ModelAttribute("projeto") @Valid ProjetoDto projetoDto, BindingResult result) {
         if (result.hasErrors()) {
-            return "projeto";
+            return PROJETO;
         }
-        service.saveOrUpdate(projeto);
 
-        return "redirect:/listar-projeto";
+        service.saveOrUpdate(projetoDto);
+
+        return REDIRECT + LISTAR_PROJETO;
     }
 
-    @RequestMapping(value = "/update-projeto", method = RequestMethod.GET)
+    @GetMapping(value = "/update-projeto")
     public String updateProjeto(ModelMap model, @RequestParam Long id) {
-        Projeto projeto = service.findById(id).get();
-        service.saveOrUpdate(projeto);
-        model.addAttribute("listaGerentes", servicePessoa.listaFuncionarios());
-        model.addAttribute("gerente", projeto.getGerente());
-        model.put("projeto", projeto);
+        ProjetoDto projetoDto = service.findById(id);
 
-        return "projeto";
+        if (projetoDto != null) {
+            service.saveOrUpdate(projetoDto);
+            model.addAttribute(LISTA_GERENTES, servicePessoa.listaFuncionarios());
+            model.addAttribute(GERENTE, projetoDto.getGerente());
+            model.put(PROJETO, projetoDto);
+        }
+
+        return PROJETO;
     }
 
-    @RequestMapping(value = "/update-projeto", method = RequestMethod.POST)
-    public String updateProjeto(ModelMap model, @Valid Projeto projeto, BindingResult result) {
+    @PostMapping(value = "/update-projeto")
+    public String updateProjeto(ModelMap model, @ModelAttribute("projeto") @Valid ProjetoDto projetoDto, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("listaGerentes", servicePessoa.listaFuncionarios());
-            model.addAttribute("gerente", projeto.getGerente());
-            return "projeto";
+            model.addAttribute(LISTA_GERENTES, servicePessoa.listaFuncionarios());
+            model.addAttribute(GERENTE, projetoDto.getGerente());
+            return PROJETO;
         }
-        service.saveOrUpdate(projeto);
 
-        return "redirect:/listar-projeto";
+        service.saveOrUpdate(projetoDto);
+
+        return REDIRECT + LISTAR_PROJETO;
     }
 
-    @RequestMapping(value = "/delete-projeto", method = RequestMethod.GET)
+    @GetMapping(value = "/delete-projeto")
     public String deleteProjeto(ModelMap model, @RequestParam Long id) {
-        Projeto projeto = service.findById(id).get();
-        if (LISTA_STATUS_NAO_PODE_DELETAR.contains(projeto.getStatus())) {
-            model.addAttribute("showMsgErro", "Não é possível deletar projeto com esse status: " + projeto.getStatus());
-        } else {
-            service.deleteById(id);
-        }
-        model.put("projetos", service.findAll());
+        ProjetoDto projetoDto = service.findById(id);
 
-        return "listar-projeto";
+        if (projetoDto != null) {
+            if (LISTA_STATUS_NAO_PODE_DELETAR.contains(projetoDto.getStatus())) {
+                model.addAttribute("showMsgErro", "Não é possível deletar projeto com esse status: " + projetoDto.getStatus());
+            } else {
+                service.deleteById(id);
+            }
+            model.put(PROJETOS, service.findAll());
+        }
+
+        return LISTAR_PROJETO;
     }
 }

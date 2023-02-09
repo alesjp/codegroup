@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class PessoaControllerTest {
+class PessoaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,7 +32,7 @@ public class PessoaControllerTest {
     PessoaController controller;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         Assertions.assertThat(controller).isNotNull();
     }
 
@@ -44,7 +44,7 @@ public class PessoaControllerTest {
         pessoa.setDataNascimento(new Date());
         pessoa.setFuncionario(true);
 
-        mockMvc.perform(post("/pessoa")
+        mockMvc.perform(post("/pessoas")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(objectMapper.writeValueAsBytes(pessoa)))
                 .andExpect(status().isOk());

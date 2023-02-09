@@ -9,13 +9,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class ProjetoControllerTest {
+class ProjetoControllerTest {
 
     @Autowired
     ProjetoController controller;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         Assertions.assertThat(controller).isNotNull();
     }
 

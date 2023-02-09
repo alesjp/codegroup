@@ -1,5 +1,6 @@
 package br.com.codegroup.service;
 
+import br.com.codegroup.dto.ProjetoDto;
 import br.com.codegroup.model.Projeto;
 import br.com.codegroup.repository.ProjetoRepository;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class ProjetoServiceTest {
+class ProjetoServiceTest {
 
     @InjectMocks
     ProjetoService service;
@@ -30,7 +31,7 @@ public class ProjetoServiceTest {
     ProjetoRepository dao;
 
     @Test
-    public void testFindAll() {
+    void testFindAll() {
         List<Projeto> list = new ArrayList<>();
         Projeto projetoUm = new Projeto();
         Projeto projetoDois = new Projeto();
@@ -40,27 +41,27 @@ public class ProjetoServiceTest {
 
         when(dao.findAll()).thenReturn(list);
 
-        List<Projeto> listaProjeto = service.findAll();
+        List<ProjetoDto> listaProjeto = service.findAll();
 
         assertEquals(2, listaProjeto.size());
         verify(dao, times(1)).findAll();
     }
 
     @Test
-    public void testSaveOrUpdate() {
-        Projeto projeto = new Projeto();
-        service.saveOrUpdate(projeto);
-        verify(dao, times(1)).save(projeto);
+    void testSaveOrUpdate() {
+        ProjetoDto projetoDto = new ProjetoDto();
+        service.saveOrUpdate(projetoDto);
+        verify(dao, times(1)).save(new Projeto());
     }
 
     @Test
-    public void testFindById() {
+    void testFindById() {
         service.findById(1l);
         verify(dao, times(1)).findById(1l);
     }
 
     @Test
-    public void testDeleteById() {
+    void testDeleteById() {
         service.deleteById(1l);
         verify(dao, times(1)).deleteById(1l);
     }

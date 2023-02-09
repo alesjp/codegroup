@@ -1,13 +1,12 @@
 package br.com.codegroup.controller;
 
-import br.com.codegroup.model.Pessoa;
+import br.com.codegroup.dto.PessoaDto;
 import br.com.codegroup.service.IPessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -18,9 +17,9 @@ public class PessoaController {
     @Autowired
     private IPessoaService service;
 
-    @RequestMapping(value = "/pessoa", method = RequestMethod.POST)
-    public Pessoa novaPessoa(@Valid @RequestBody Pessoa pessoa) {
-        service.save(pessoa);
-        return new ResponseEntity<>(pessoa, HttpStatus.OK).getBody();
+    @PostMapping(value = "/pessoas")
+    public PessoaDto novaPessoa(@Valid @RequestBody PessoaDto pessoaDto) {
+        service.saveOrUpdate(pessoaDto);
+        return new ResponseEntity<>(pessoaDto, HttpStatus.OK).getBody();
     }
 }

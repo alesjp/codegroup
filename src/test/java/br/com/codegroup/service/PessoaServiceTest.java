@@ -1,5 +1,6 @@
 package br.com.codegroup.service;
 
+import br.com.codegroup.dto.PessoaDto;
 import br.com.codegroup.model.Pessoa;
 import br.com.codegroup.repository.PessoaRepository;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class PessoaServiceTest {
+class PessoaServiceTest {
 
     @InjectMocks
     PessoaService service;
@@ -30,7 +31,7 @@ public class PessoaServiceTest {
     PessoaRepository dao;
 
     @Test
-    public void testListaFuncionarios() {
+    void testListaFuncionarios() {
         List<Pessoa> list = new ArrayList<>();
         Pessoa pessoaUm = new Pessoa();
         Pessoa pessoaDois = new Pessoa();
@@ -40,16 +41,16 @@ public class PessoaServiceTest {
 
         when(dao.listaFuncionarios()).thenReturn(list);
 
-        List<Pessoa> listaPessoas = service.listaFuncionarios();
+        List<PessoaDto> listaPessoas = service.listaFuncionarios();
 
         assertEquals(2, listaPessoas.size());
         verify(dao, times(1)).listaFuncionarios();
     }
 
     @Test
-    public void testSave() {
-        Pessoa pessoa = new Pessoa();
-        service.save(pessoa);
-        verify(dao, times(1)).save(pessoa);
+    void testSaveOrUpdate() {
+        PessoaDto pessoaDto = new PessoaDto();
+        service.saveOrUpdate(pessoaDto);
+        verify(dao, times(1)).save(new Pessoa());
     }
 }

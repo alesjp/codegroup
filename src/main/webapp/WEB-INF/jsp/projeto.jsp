@@ -18,7 +18,7 @@
 
                         <fieldset class="form-group">
                             <div class="col-lg-12">
-                                <form:label path="nome">Nome</form:label>
+                                <legend>Nome</legend>
                                 <form:input path="nome" type="text" class="form-control" required="required"/>
                                 <form:errors path="nome" cssClass="text-warning"/>
                             </div>
@@ -26,7 +26,7 @@
 
                         <fieldset class="form-group">
                             <div class="col-lg-12">
-                                <form:label path="descricao">Descrição</form:label>
+                                <legend>Descrição</legend>
                                 <form:textarea path="descricao" type="text" class="form-control" required="required" rows="5"/>
                                 <form:errors path="descricao" cssClass="text-warning"/>
                             </div>
@@ -34,19 +34,19 @@
 
                         <fieldset class="form-group">
                             <div class="col-lg-4">
-                                <form:label path="dataInicio">Data Início</form:label>
+                                <legend>Data Início</legend>
                                 <form:input path="dataInicio" type="text" class="form-control" required="required"/>
                                 <form:errors path="dataInicio" cssClass="text-warning"/>
                             </div>
 
                             <div class="col-lg-4">
-                                <form:label path="dataPrevisaoFim">Data Previsão Fim</form:label>
+                                <legend>Data Previsão Fim</legend>
                                 <form:input path="dataPrevisaoFim" type="text" class="form-control" required="required"/>
                                 <form:errors path="dataPrevisaoFim" cssClass="text-warning"/>
                             </div>
 
                             <div class="col-lg-4">
-                                <form:label path="dataFim">Data Fim</form:label>
+                                <legend>Data Fim</legend>
                                 <form:input path="dataFim" type="text" class="form-control" required="required"/>
                                 <form:errors path="dataFim" cssClass="text-warning"/>
                             </div>
@@ -54,7 +54,7 @@
 
                         <fieldset class="form-group">
                             <div class="col-lg-6">
-                                <form:label path="gerente">Gerente Responsável</form:label>
+                                <legend>Gerente Responsável</legend>
                                 <form:select path="gerente" class="form-control" required="required">
                                     <form:option value="">SELECIONAR</form:option>
                                     <c:forEach items="${listaGerentes}" var="ger">
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="col-lg-6">
-                                <form:label path="orcamento">Orçamento Total</form:label>
+                                <legend>Orçamento Total</legend>
                                 <div class="input-group">
                                     <div class="input-group-addon">R$</div>
                                     <form:input path="orcamento" type="text" class="form-control" required="required"/>
@@ -78,7 +78,7 @@
 
                         <fieldset class="form-group">
                             <div class="col-lg-6">
-                                <form:label path="status">Status</form:label>
+                                <legend>Status</legend>
                                 <form:select path="status" class="form-control" required="required">
                                     <form:option value="">SELECIONAR</form:option>
                                     <form:option value="EM ANÁLISE">EM ANÁLISE</form:option>
@@ -94,7 +94,7 @@
                             </div>
 
                             <div class="col-lg-6">
-                                <form:label path="risco">Risco</form:label>
+                                <legend>Risco</legend>
                                 <form:select path="risco" class="form-control">
                                     <form:option value="">SELECIONAR</form:option>
                                     <form:option value="BAIXO RISCO">BAIXO RISCO</form:option>

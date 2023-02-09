@@ -8,7 +8,7 @@
     </div>
     <br>
     <div class="panel panel-primary">
-        <div class="panel-heading">
+        <div id="projetos" class="panel-heading">
             <h3>Projetos</h3>
         </div>
         <div class="panel-body">
@@ -17,14 +17,14 @@
                 <div class="alert alert-danger" role="alert"><strong>Atenção: </strong>${showMsgErro}</div>
             </c:if>
 
-            <table class="table table-striped">
+            <table aria-describedby="projetos" class="table table-striped">
                 <thead>
                 <tr>
-                    <th width="30%">Nome</th>
-                    <th width="10%">Data Início</th>
-                    <th width="30%">Gerente Responsável</th>
-                    <th width="10%">Status</th>
-                    <th width="20%">Ações</th>
+                    <th>Nome</th>
+                    <th>Data Início</th>
+                    <th>Gerente Responsável</th>
+                    <th>Status</th>
+                    <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>

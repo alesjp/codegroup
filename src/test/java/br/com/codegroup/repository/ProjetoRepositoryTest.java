@@ -12,13 +12,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ProjetoRepositoryTest {
+class ProjetoRepositoryTest {
 
     @Autowired
     ProjetoRepository repository;
 
     @Test
-    public void testCreateReadDelete() {
+    void testCreateReadDelete() {
         Projeto projeto = new Projeto();
         projeto.setNome("Meu Projeto");
 

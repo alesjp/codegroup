@@ -14,13 +14,13 @@ import java.util.Date;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class PessoaRepositoryTest {
+class PessoaRepositoryTest {
 
     @Autowired
     PessoaRepository repository;
 
     @Test
-    public void testCreateReadDelete() {
+    void testCreateReadDelete() {
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Alexandre");
         pessoa.setCpf("12312312312");

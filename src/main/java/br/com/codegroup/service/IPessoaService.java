@@ -1,12 +1,12 @@
 package br.com.codegroup.service;
 
-import br.com.codegroup.model.Pessoa;
+import br.com.codegroup.dto.PessoaDto;
 
 import java.util.List;
 
 public interface IPessoaService {
 
-    Pessoa save(Pessoa Pessoa);
+    void saveOrUpdate(PessoaDto pessoaDto);
 
-    List<Pessoa> listaFuncionarios();
+    List<PessoaDto> listaFuncionarios();
 }

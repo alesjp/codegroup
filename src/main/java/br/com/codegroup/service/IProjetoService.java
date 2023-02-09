@@ -1,17 +1,16 @@
 package br.com.codegroup.service;
 
-import br.com.codegroup.model.Projeto;
+import br.com.codegroup.dto.ProjetoDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IProjetoService {
 
-    List<Projeto> findAll();
+    List<ProjetoDto> findAll();
 
-    Optional<Projeto> findById(Long id);
+    ProjetoDto findById(Long id);
 
-    void saveOrUpdate(Projeto projeto);
+    void saveOrUpdate(ProjetoDto projeto);
 
     void deleteById(Long id);
 
